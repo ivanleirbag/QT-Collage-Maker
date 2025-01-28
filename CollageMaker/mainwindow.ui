@@ -99,7 +99,7 @@
         <string>Generar Collage</string>
        </property>
       </widget>
-      <widget class="QSlider" name="horizontalSlider_2">
+      <widget class="QSlider" name="brushSizeHorizontalSlider">
        <property name="geometry">
         <rect>
          <x>30</x>
@@ -346,6 +346,32 @@
        </property>
        <property name="text">
         <string>3.</string>
+       </property>
+      </widget>
+      <widget class="QLabel" name="label_10">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>360</y>
+         <width>16</width>
+         <height>20</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>4.</string>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="selectSingleImage">
+       <property name="geometry">
+        <rect>
+         <x>30</x>
+         <y>360</y>
+         <width>101</width>
+         <height>23</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Cargar Img</string>
        </property>
       </widget>
      </widget>

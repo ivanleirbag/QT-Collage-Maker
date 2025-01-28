@@ -35,7 +35,7 @@ public:
     QPushButton *saveDrawing;
     QPushButton *selectImages;
     QPushButton *generateCollage;
-    QSlider *horizontalSlider_2;
+    QSlider *brushSizeHorizontalSlider;
     QLabel *label_7;
     QSpinBox *imageHeightSpinBox;
     QLabel *label_2;
@@ -50,6 +50,8 @@ public:
     QLabel *label_3;
     QLabel *label_4;
     QLabel *label_9;
+    QLabel *label_10;
+    QPushButton *selectSingleImage;
     QMenuBar *menubar;
     QStatusBar *statusbar;
 
@@ -91,10 +93,10 @@ public:
         generateCollage = new QPushButton(groupBox);
         generateCollage->setObjectName("generateCollage");
         generateCollage->setGeometry(QRect(30, 330, 101, 23));
-        horizontalSlider_2 = new QSlider(groupBox);
-        horizontalSlider_2->setObjectName("horizontalSlider_2");
-        horizontalSlider_2->setGeometry(QRect(30, 230, 160, 16));
-        horizontalSlider_2->setOrientation(Qt::Orientation::Horizontal);
+        brushSizeHorizontalSlider = new QSlider(groupBox);
+        brushSizeHorizontalSlider->setObjectName("brushSizeHorizontalSlider");
+        brushSizeHorizontalSlider->setGeometry(QRect(30, 230, 160, 16));
+        brushSizeHorizontalSlider->setOrientation(Qt::Orientation::Horizontal);
         label_7 = new QLabel(groupBox);
         label_7->setObjectName("label_7");
         label_7->setGeometry(QRect(20, 160, 171, 16));
@@ -160,6 +162,12 @@ public:
         label_9 = new QLabel(groupBox);
         label_9->setObjectName("label_9");
         label_9->setGeometry(QRect(10, 330, 16, 20));
+        label_10 = new QLabel(groupBox);
+        label_10->setObjectName("label_10");
+        label_10->setGeometry(QRect(10, 360, 16, 20));
+        selectSingleImage = new QPushButton(groupBox);
+        selectSingleImage->setObjectName("selectSingleImage");
+        selectSingleImage->setGeometry(QRect(30, 360, 101, 23));
 
         gridLayout->addWidget(groupBox, 0, 0, 1, 1);
 
@@ -193,6 +201,8 @@ public:
         label_3->setText(QCoreApplication::translate("MainWindow", "1.", nullptr));
         label_4->setText(QCoreApplication::translate("MainWindow", "2.", nullptr));
         label_9->setText(QCoreApplication::translate("MainWindow", "3.", nullptr));
+        label_10->setText(QCoreApplication::translate("MainWindow", "4.", nullptr));
+        selectSingleImage->setText(QCoreApplication::translate("MainWindow", "Cargar Img", nullptr));
     } // retranslateUi
 
 };

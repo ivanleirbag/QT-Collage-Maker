@@ -24,6 +24,10 @@ MainWindow::MainWindow(QWidget *parent)
     connect(ui->matrixRowsSpinBox, &QSpinBox::valueChanged, this, &MainWindow::changeColorMatrixRows);
 
     connect(ui->collageRandomHorizontalSlider, &QSlider::valueChanged, this, &MainWindow::changeCollageRandomFloor);
+
+    connect(ui->selectSingleImage, &QPushButton::clicked, this, &MainWindow::selectSingleImage);
+
+    connect(ui->brushSizeHorizontalSlider, &QSlider::valueChanged, this, &MainWindow::changePenWidth);
 }
 
 MainWindow::~MainWindow()
@@ -72,6 +76,29 @@ void MainWindow::selectImages()
     }
 
     qDebug() << "Stored images: " << m_imageProcessor.getProcessedImages().size();
+}
+
+void MainWindow::selectSingleImage()
+{
+    QString filePath = QFileDialog::getOpenFileName(
+        this,
+        tr("Seleccionar Imágen"),
+        QString(),
+        tr("Imágenes(*.png *.jpg *.jpeg)"));
+
+    if(filePath.isNull()){
+        qDebug() << "No image was selected...";
+        return;
+    }
+
+    QImage selectedImage(filePath);
+
+    if(selectedImage.isNull()){
+        qDebug() << "There was a problem loading the image...";
+        return;
+    }
+
+    m_savedDrawing = selectedImage;
 }
 
 void MainWindow::generateCollage()
@@ -132,4 +159,10 @@ void MainWindow::changeColorMatrixRows()
 {
     m_matrixRows = ui->matrixRowsSpinBox->value();
     qDebug() << "New rows value " << m_matrixRows;
+}
+
+void MainWindow::changePenWidth()
+{
+    int newWidth = ui->brushSizeHorizontalSlider->value();
+    m_paintArea->setPenWidth(newWidth);
 }

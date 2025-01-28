@@ -42,6 +42,7 @@ private:
 private slots:
     void saveDrawing();
     void selectImages();
+    void selectSingleImage();
     void generateCollage();
     void generateMatrix();
     void changeCollageHeight();
@@ -49,6 +50,7 @@ private slots:
     void changeCollageRandomFloor();
     void changeColorMatrixCols();
     void changeColorMatrixRows();
+    void changePenWidth();
 
 };
 #endif // MAINWINDOW_H
