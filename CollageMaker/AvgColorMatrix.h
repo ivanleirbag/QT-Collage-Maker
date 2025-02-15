@@ -1,13 +1,16 @@
 #ifndef AVGCOLORMATRIX_H
 #define AVGCOLORMATRIX_H
 
+#include "PaintArea.h"
 #include <QImage>
 #include <vector>
 #include <QColor>
 #include <QDebug>
 
-static const int DEFAULT_MATRIX_COLS = 32;
-static const int DEFAULT_MATRIX_ROWS = 24;
+static const int DEFAULT_MATRIX_COLS = PaintArea::DEFAULT_WIDTH*0.04;
+static const int DEFAULT_MATRIX_ROWS = PaintArea::DEFAULT_HEIGHT*0.04;
+static const int MAX_MATRIX_COLS = DEFAULT_MATRIX_COLS*100;
+static const int MAX_MATRIX_ROWS = DEFAULT_MATRIX_ROWS*100;
 
 class AvgColorMatrix
 {

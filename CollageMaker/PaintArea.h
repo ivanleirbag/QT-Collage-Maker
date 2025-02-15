@@ -39,7 +39,8 @@ public:
         MAX_IMAGE_SIZE = 3000,
         MIN_IMAGE_SIZE = 1,
         DEFAULT_WIDTH = 800,
-        DEFAULT_HEIGHT = 600
+        DEFAULT_HEIGHT = 600,
+        DEFAULT_ZOOM = 100
     };
 
     QPen getPen();

@@ -1,7 +1,8 @@
 #include "PaintWidget.h"
 
-PaintWidget::PaintWidget(QWidget *parent):
-    QWidget(parent)
+PaintWidget::PaintWidget(QWidget *parent)
+    : QWidget(parent)
+    , m_selectedLayer(0)
 {
     QCursor cursor;
     cursor.setShape(Qt::CrossCursor);
@@ -44,7 +45,7 @@ void PaintWidget::paintEvent(QPaintEvent *event)
     qreal scaleX = size().width() / qreal(m_layers[0].getImage()->size().width());
     qreal scaleY = size().height() / qreal(m_layers[0].getImage()->size().height());
     qreal scale = qMin(scaleX, scaleY);
-    auto imageRect = QRectF(eventRect.topLeft() / scale, eventRect.topRight() / scale);
+    auto imageRect = QRectF(eventRect.topLeft() / scale, eventRect.bottomRight() / scale);
     for (int i = 0; i < m_layers.size(); i++){
         if(m_layers[i].isVisible()){
             painter.drawImage(eventRect, *m_layers[i].getImage(), imageRect);

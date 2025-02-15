@@ -19,6 +19,8 @@ public:
 
     void clearImages();
 
+    void deleteImage(int index);
+
 private:
     QColor calculateAvgColor(const QImage &image) const;
 

@@ -10,19 +10,33 @@ CONFIG += c++17
 
 SOURCES += \
     AvgColorMatrix.cpp \
+    BrushSizePopUp.cpp \
+    BrushSizePreview.cpp \
+    BrushSizeWidget.cpp \
     BrushTool.cpp \
     CollageGenerator.cpp \
+    CollageResolutionDialog.cpp \
+    CollageSubdivisionsDialog.cpp \
+    ColorPicker.cpp \
     ImageProcessor.cpp \
     Layer.cpp \
     PaintArea.cpp \
     PaintWidget.cpp \
+    RandomPickDialog.cpp \
+    ZoomSlider.cpp \
     main.cpp \
     mainwindow.cpp
 
 HEADERS += \
     AvgColorMatrix.h \
+    BrushSizePopUp.h \
+    BrushSizePreview.h \
+    BrushSizeWidget.h \
     BrushTool.h \
     CollageGenerator.h \
+    CollageResolutionDialog.h \
+    CollageSubdivisionsDialog.h \
+    ColorPicker.h \
     ImageData.h \
     ImageProcessor.h \
     Layer.h \
@@ -30,9 +44,17 @@ HEADERS += \
     PaintEvent.h \
     PaintTool.h \
     PaintWidget.h \
+    RandomPickDialog.h \
+    ZoomSlider.h \
     mainwindow.h
 
 FORMS += \
+    BrushSizePopUp.ui \
+    BrushSizeWidget.ui \
+    CollageResolutionDialog.ui \
+    CollageSubdivisionsDialog.ui \
+    RandomPickDialog.ui \
+    ZoomSlider.ui \
     mainwindow.ui
 
 TRANSLATIONS += \

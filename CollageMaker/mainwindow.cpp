@@ -18,28 +18,8 @@ MainWindow::MainWindow(QWidget *parent)
     m_matrixCols = DEFAULT_MATRIX_COLS;
     m_matrixRows = DEFAULT_MATRIX_ROWS;
 
-    connect(ui->saveDrawing, &QPushButton::clicked, this, &MainWindow::saveDrawing);
-    connect(ui->selectImages, &QPushButton::clicked, this, &MainWindow::selectImages);
-    connect(ui->generateCollage, &QPushButton::clicked, this, &MainWindow::generateCollage);
-
-    connect(ui->imageWidthSpinBox, &QSpinBox::valueChanged, this, &MainWindow::changeCollageWidth);
-    connect(ui->imageHeightSpinBox, &QSpinBox::valueChanged, this, &MainWindow::changeCollageHeight);
-
-    connect(ui->matrixColsSpinBox, &QSpinBox::valueChanged, this, &MainWindow::changeColorMatrixCols);
-    connect(ui->matrixRowsSpinBox, &QSpinBox::valueChanged, this, &MainWindow::changeColorMatrixRows);
-
-    connect(ui->collageRandomHorizontalSlider, &QSlider::valueChanged, this, &MainWindow::changeCollageRandomFloor);
-
-    connect(ui->selectSingleImage, &QPushButton::clicked, this, &MainWindow::openFile);
-
-    connect(ui->brushSizeHorizontalSlider, &QSlider::valueChanged, this, &MainWindow::changePenWidth);
-
-    connect(ui->redVerticalSlider, &QSlider::valueChanged, this, &MainWindow::changePenColor);
-    connect(ui->greenVerticalSlider, &QSlider::valueChanged, this, &MainWindow::changePenColor);
-    connect(ui->blueVerticalSlider, &QSlider::valueChanged, this, &MainWindow::changePenColor);
-    connect(ui->alphaVerticalSlider, &QSlider::valueChanged, this, &MainWindow::changePenColor);
-
-    connect(ui->zoomHorizontalSlider, &QSlider::valueChanged, this, &MainWindow::changeZoom);
+    setStatusBar();
+    setMenuBar();
 }
 
 MainWindow::~MainWindow()
@@ -70,6 +50,71 @@ void MainWindow::saveDrawing()
     }
 }
 
+void MainWindow::setStatusBar()
+{
+    //brush size
+    m_brushSizeWidget = new BrushSizeWidget(this);
+    m_brushSizeWidget->setPopupSliderValue(m_paintArea->getPen().width());
+    ui->statusbar->addPermanentWidget(m_brushSizeWidget);
+    m_brushSizeWidgetSlider = m_brushSizeWidget->getSlider();
+    connect(m_brushSizeWidgetSlider,
+            &QSlider::valueChanged,
+            this,
+            &MainWindow::changePenWidth);
+
+    //color picker
+    ui->statusbar->addPermanentWidget(new QLabel(QStringLiteral("Color: ")));
+    ui->statusbar->addPermanentWidget(&m_colorPicker);
+    m_colorPicker.setColor(m_paintArea->getPen().color());
+    connect(m_colorPicker.dialog(),
+            &QColorDialog::colorSelected,
+            this,
+            &MainWindow::changePenColor);
+
+    //zoom slider
+    ui->statusbar->addPermanentWidget(new QLabel(QStringLiteral("Zoom: ")));
+    ZoomSlider *zoom = new ZoomSlider();
+    connect(zoom->slider(),
+            &QSlider::valueChanged,
+            m_paintArea,
+            &PaintArea::setZoom);
+    ui->statusbar->addPermanentWidget(zoom);
+}
+
+void MainWindow::setMenuBar()
+{
+    connect(ui->actionChange_resolution,
+            &QAction::triggered,
+            this,
+            &MainWindow::changeCollageResolution);
+
+    connect(ui->actionChange_Subdivitions,
+            &QAction::triggered,
+            this,
+            &MainWindow::changeCollageSubdivisions);
+
+    connect(ui->actionOpen_file,
+            &QAction::triggered,
+            this,
+            &MainWindow::openFile);
+
+    connect(ui->actionChange_random_pick,
+            &QAction::triggered,
+            this,
+            &MainWindow::changeCollageRandomPick);
+
+    connect(ui->actionSelect_images,
+            &QAction::triggered,
+            this,
+            &MainWindow::selectImages);
+
+    ui->actionGenerate_collage->setEnabled(false);
+    connect(ui->actionGenerate_collage,
+            &QAction::triggered,
+            this,
+            &MainWindow::generateCollage);
+}
+
 void MainWindow::selectImages()
 {
     QStringList filePaths = QFileDialog::getOpenFileNames(
@@ -87,11 +132,16 @@ void MainWindow::selectImages()
         m_imageProcessor.addImage(filePath);
     }
 
+    if(m_imageProcessor.getProcessedImages().size() > 0)
+        ui->actionGenerate_collage->setEnabled(true);
+
     qDebug() << "Stored images: " << m_imageProcessor.getProcessedImages().size();
 }
 
 void MainWindow::generateCollage()
 {
+    saveDrawing();
+
     if(m_savedDrawing.isNull()){
         qDebug() << "Could not analize drawing...";
         return;
@@ -116,57 +166,53 @@ void MainWindow::generateCollage()
     }
 }
 
-void MainWindow::changeCollageHeight()
+void MainWindow::changeCollageResolution()
 {
-    m_collageHeight = ui->imageHeightSpinBox->value();
-    qDebug() << "New height value " << m_collageHeight;
+    auto dialog = new CollageResolutionDialog(this, m_collageWidth, m_collageHeight);
+    dialog->setWindowModality(Qt::WindowModal);
+    if (dialog->exec()){
+        m_collageHeight = dialog->getHeight();
+        m_collageWidth = dialog->getWidth();
+        qDebug() << "New height value " << m_collageHeight;
+        qDebug() << "New width value " << m_collageWidth;
+    }
 }
 
-void MainWindow::changeCollageWidth()
+void MainWindow::changeCollageSubdivisions()
 {
-    m_collageWidth = ui->imageWidthSpinBox->value();
-    qDebug() << "New width value " << m_collageWidth;
+    auto dialog = new CollageSubdivisionsDialog(this, m_matrixCols, m_matrixRows);
+    dialog->setWindowModality(Qt::WindowModal);
+    if (dialog->exec()){
+        m_matrixCols = dialog->getColumns();
+        m_matrixRows = dialog->getRows();
+        qDebug() << "New columns value " << m_matrixCols;
+        qDebug() << "New rows value " << m_matrixRows;
+    }
 }
 
-void MainWindow::changeCollageRandomFloor()
+void MainWindow::changeCollageRandomPick()
 {
-    m_randomFloor = static_cast<float>(ui->collageRandomHorizontalSlider->value());
-    qDebug() << "New random value " << m_randomFloor;
+    auto dialog = new RandomPickDialog(this, m_randomFloor);
+    dialog->setWindowModality(Qt::WindowModal);
+    if(dialog->exec()){
+        m_randomFloor = dialog->getValue();
+        qDebug() << "New random pick value " << m_randomFloor;
+    }
 }
 
-void MainWindow::changeColorMatrixCols()
-{
-    m_matrixCols = ui->matrixColsSpinBox->value();
-    qDebug() << "New columns value " << m_matrixCols;
-}
-
-void MainWindow::changeColorMatrixRows()
-{
-    m_matrixRows = ui->matrixRowsSpinBox->value();
-    qDebug() << "New rows value " << m_matrixRows;
-}
 
 void MainWindow::changePenWidth()
 {
-    int newWidth = ui->brushSizeHorizontalSlider->value();
+    int newWidth = m_brushSizeWidgetSlider->value();
     m_paintArea->setPenWidth(newWidth);
 }
 
-void MainWindow::changePenColor()
+void MainWindow::changePenColor(const QColor &color)
 {
-    QColor newColor = QColor(ui->redVerticalSlider->value(),
-                    ui->greenVerticalSlider->value(),
-                    ui->blueVerticalSlider->value(),
-                    255 - ui->alphaVerticalSlider->value());
-
-    m_paintArea->setPenColor(newColor);
+    m_paintArea->setPenColor(color);
+    m_brushSizeWidget->setBrushColor(color);
 }
 
-void MainWindow::changeZoom()
-{
-    int newZoom = ui->zoomHorizontalSlider->value();
-    m_paintArea->setZoom(newZoom);
-}
 
 void MainWindow::openFile()
 {
@@ -188,5 +234,9 @@ void MainWindow::openFile()
         qDebug() << "There was a problem loading the image at " << file;
         return;
     }
+    m_collageHeight = selectedImage.height()*4;
+    m_collageWidth = selectedImage.width()*4;
+    m_matrixCols = selectedImage.height()*0.04;
+    m_matrixRows = selectedImage.width()*0.04;
     m_savedDrawing = selectedImage;
 }

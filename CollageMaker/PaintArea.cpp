@@ -1,7 +1,5 @@
 #include "PaintArea.h"
 
-static const int DEFAULT_ZOOM = 100;
-
 PaintArea::PaintArea(QWidget *parent)
     : QScrollArea(parent)
     , m_paintWidget(new PaintWidget())
@@ -10,11 +8,11 @@ PaintArea::PaintArea(QWidget *parent)
     m_brush = QColor(Qt::black);
     m_zoom = DEFAULT_ZOOM;
 
-    QScrollArea::setAlignment(Qt::AlignCenter);
-    QWidget::setBackgroundRole(QPalette::Midlight);
+    setAlignment(Qt::AlignCenter);
+    setBackgroundRole(QPalette::Midlight);
     setBlankLayer();
     setDefaultPen();
-    QScrollArea::setWidget(m_paintWidget);
+    setWidget(m_paintWidget);
 
     connect(m_paintWidget, &PaintWidget::mouseMove, this, &PaintArea::mouseMove);
     connect(m_paintWidget, &PaintWidget::mousePress, this, &PaintArea::mousePress);

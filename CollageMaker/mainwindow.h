@@ -11,8 +11,12 @@
 #include "ImageProcessor.h"
 #include "AvgColorMatrix.h"
 #include "CollageGenerator.h"
-
-
+#include "ZoomSlider.h"
+#include "ColorPicker.h"
+#include "CollageResolutionDialog.h"
+#include "CollageSubdivisionsDialog.h"
+#include "RandomPickDialog.h"
+#include "BrushSizeWidget.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -40,20 +44,25 @@ private:
     int m_matrixCols;
     int m_matrixRows;
     float m_randomFloor;
+    ColorPicker m_colorPicker;
+    BrushSizeWidget *m_brushSizeWidget;
+    QSlider *m_brushSizeWidgetSlider;
+
+private:
+    void saveDrawing();
+    void setStatusBar();
+    void setMenuBar();
 
 private slots:
-    void saveDrawing();
     void selectImages();
     void generateCollage();
-    void changeCollageHeight();
-    void changeCollageWidth();
-    void changeCollageRandomFloor();
-    void changeColorMatrixCols();
-    void changeColorMatrixRows();
+    void changeCollageResolution();
+    void changeCollageSubdivisions();
+    void changeCollageRandomPick();
     void changePenWidth();
-    void changePenColor();
-    void changeZoom();
+    void changePenColor(const QColor &color);
     void openFile();
+
 
 };
 #endif // MAINWINDOW_H

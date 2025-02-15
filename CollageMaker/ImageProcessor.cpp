@@ -33,6 +33,14 @@ void ImageProcessor::clearImages()
     m_images.clear();
 }
 
+void ImageProcessor::deleteImage(int index)
+{
+    if(index > 0 && index < m_images.size()){
+        m_images.erase(m_images.begin() + index);
+        qDebug() << "Succesfully deleted image at index " << index;
+    }
+}
+
 QColor ImageProcessor::calculateAvgColor(const QImage &image) const
 {
     const int size = 1;

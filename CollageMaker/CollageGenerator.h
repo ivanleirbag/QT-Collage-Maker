@@ -9,10 +9,14 @@
 
 #include "AvgColorMatrix.h"
 #include "ImageData.h"
+#include "PaintArea.h"
 
-static const int DEFAULT_COLLAGE_WIDTH = 1920;
-static const int DEFAULT_COLLAGE_HEIGHT = 1440;
+static const int DEFAULT_COLLAGE_WIDTH = PaintArea::DEFAULT_WIDTH*4;
+static const int DEFAULT_COLLAGE_HEIGHT = PaintArea::DEFAULT_HEIGHT*4;
+static const int MAX_COLLAGE_WIDTH = 50000;
+static const int MAX_COLLAGE_HEIGHT = 50000;
 static const float DEFAULT_RANDOMNESS = 0.0;
+static const float MAX_RANDOMNESS = 1000.0;
 
 
 class CollageGenerator
