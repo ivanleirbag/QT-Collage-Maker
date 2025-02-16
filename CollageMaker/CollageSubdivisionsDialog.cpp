@@ -53,10 +53,10 @@ void CollageSubdivisionsDialog::keepAspectRatio()
 
 void CollageSubdivisionsDialog::setColumns()
 {
-    qDebug() << "New aspect ratio: "<< m_aspectRatio;
+    //qDebug() << "New aspect ratio: "<< m_aspectRatio;
     if(ui->aspectRatioCheckBox->isChecked()){
         int adjusted = ui->colsSpinBox->value() / m_aspectRatio;
-        qDebug() << "Adjusted columns: " << adjusted;
+        //qDebug() << "Adjusted columns: " << adjusted;
         ui->rowsSpinBox->blockSignals(true);
         ui->rowsSpinBox->setValue(adjusted);
         ui->rowsSpinBox->blockSignals(false);
@@ -65,10 +65,10 @@ void CollageSubdivisionsDialog::setColumns()
 
 void CollageSubdivisionsDialog::setRows()
 {
-    qDebug() << "New aspect ratio: "<< m_aspectRatio;
+    //qDebug() << "New aspect ratio: "<< m_aspectRatio;
     if(ui->aspectRatioCheckBox->isChecked()){
         int adjusted = ui->rowsSpinBox->value() * m_aspectRatio;
-        qDebug() << "Adjusted height: " << adjusted;
+        //qDebug() << "Adjusted height: " << adjusted;
         ui->colsSpinBox->blockSignals(true);
         ui->colsSpinBox->setValue(adjusted);
         ui->colsSpinBox->blockSignals(false);

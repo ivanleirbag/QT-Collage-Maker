@@ -17,6 +17,8 @@
 #include "CollageSubdivisionsDialog.h"
 #include "RandomPickDialog.h"
 #include "BrushSizeWidget.h"
+#include "CollageImagesPreviewWidget.h"
+#include "qboxlayout.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -48,10 +50,15 @@ private:
     BrushSizeWidget *m_brushSizeWidget;
     QSlider *m_brushSizeWidgetSlider;
 
+    QScrollArea *m_previewScrollArea;
+    QWidget *m_previewContainer;
+    QVBoxLayout *m_previewLayout;
+
 private:
     void saveDrawing();
     void setStatusBar();
     void setMenuBar();
+    void setPreviewSidePanel();
 
 private slots:
     void selectImages();

@@ -47,10 +47,10 @@ int CollageResolutionDialog::getHeight()
 
 void CollageResolutionDialog::setWidth()
 {
-    qDebug() << "New aspect ratio: "<<m_aspectRatio;
+    //qDebug() << "New aspect ratio: "<<m_aspectRatio;
     if(ui->aspectRatioCheckBox->isChecked()){
         int adjusted = ui->widthSpinBox->value() / m_aspectRatio;
-        qDebug() << "Adjusted width: " << adjusted;
+        //qDebug() << "Adjusted width: " << adjusted;
         ui->heightSpinBox->blockSignals(true);
         ui->heightSpinBox->setValue(adjusted);
         ui->heightSpinBox->blockSignals(false);
@@ -59,10 +59,10 @@ void CollageResolutionDialog::setWidth()
 
 void CollageResolutionDialog::setHeight()
 {
-    qDebug() << "New aspect ratio: "<< m_aspectRatio;
+    //qDebug() << "New aspect ratio: "<< m_aspectRatio;
     if(ui->aspectRatioCheckBox->isChecked()){
         int adjusted = ui->heightSpinBox->value() * m_aspectRatio;
-        qDebug() << "Adjusted height: " << adjusted;
+        //qDebug() << "Adjusted height: " << adjusted;
         ui->widthSpinBox->blockSignals(true);
         ui->widthSpinBox->setValue(adjusted);
         ui->widthSpinBox->blockSignals(false);

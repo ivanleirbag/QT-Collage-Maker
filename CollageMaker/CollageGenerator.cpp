@@ -63,8 +63,8 @@ QImage CollageGenerator::findBestMatch(const QColor &targetColor)
 
         if(distanceSqrd < minDistance){
             minDistance = distanceSqrd;
-            qDebug()<<"Best match distance: "<< distanceSqrd;
-            qDebug()<<"Best match color: "<< color;
+           // qDebug()<<"Best match distance: "<< distanceSqrd;
+           // qDebug()<<"Best match color: "<< color;
             bestMatch = image;
         }
 

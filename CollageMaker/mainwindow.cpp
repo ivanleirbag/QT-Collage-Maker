@@ -20,6 +20,7 @@ MainWindow::MainWindow(QWidget *parent)
 
     setStatusBar();
     setMenuBar();
+    setPreviewSidePanel();
 }
 
 MainWindow::~MainWindow()
@@ -36,11 +37,11 @@ void MainWindow::saveDrawing()
     m_savedDrawing = m_paintArea->saveImage();
 
     if(m_savedDrawing.isNull()){
-        qDebug() << "Rendered drawing is null. Save failed...";
+        //qDebug() << "Rendered drawing is null. Save failed...";
         return;
     }
 
-    qDebug() << "Loaded drawing succesfully...";
+    //qDebug() << "Loaded drawing succesfully...";
     QString fileName = QDir::currentPath() + "/collages/drawing_" + QDateTime::currentDateTime().toString("yyyyMMdd_HHmmss") + ".png";
 
     if(m_savedDrawing.save(fileName)){
@@ -115,6 +116,21 @@ void MainWindow::setMenuBar()
             &MainWindow::generateCollage);
 }
 
+void MainWindow::setPreviewSidePanel()
+{
+    m_previewContainer = new QWidget(this);
+    m_previewLayout = new QVBoxLayout(m_previewContainer);
+    m_previewScrollArea = new QScrollArea(this);
+
+    m_previewContainer->setLayout(m_previewLayout);
+
+    m_previewScrollArea->setMaximumWidth(PREVIEW_WIDTH+55);
+    m_previewScrollArea->setWidget(m_previewContainer);
+    m_previewScrollArea->setWidgetResizable(true);
+
+    ui->horizontalLayout->addWidget(m_previewScrollArea);
+}
+
 void MainWindow::selectImages()
 {
     QStringList filePaths = QFileDialog::getOpenFileNames(
@@ -130,6 +146,11 @@ void MainWindow::selectImages()
 
     for(const QString &filePath : filePaths){
         m_imageProcessor.addImage(filePath);
+    }
+
+    for(const ImageData &imageData : m_imageProcessor.getProcessedImages()){
+        CollageImagesPreviewWidget *preview = new CollageImagesPreviewWidget(this, imageData.imgPath, imageData.avgColor);
+        m_previewLayout->addWidget(preview);
     }
 
     if(m_imageProcessor.getProcessedImages().size() > 0)

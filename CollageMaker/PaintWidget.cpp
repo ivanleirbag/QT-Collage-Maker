@@ -95,7 +95,7 @@ QImage PaintWidget::renderImage()
             painter.drawImage(QPoint(0,0), *image);
         }
     }
-    qDebug() << "Rendering image...";
+    //qDebug() << "Rendering image...";
     return pixmap.toImage();
 }
 

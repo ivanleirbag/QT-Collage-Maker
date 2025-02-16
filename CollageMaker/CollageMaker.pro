@@ -15,9 +15,11 @@ SOURCES += \
     BrushSizeWidget.cpp \
     BrushTool.cpp \
     CollageGenerator.cpp \
+    CollageImagesPreviewWidget.cpp \
     CollageResolutionDialog.cpp \
     CollageSubdivisionsDialog.cpp \
     ColorPicker.cpp \
+    ImagePreview.cpp \
     ImageProcessor.cpp \
     Layer.cpp \
     PaintArea.cpp \
@@ -34,10 +36,12 @@ HEADERS += \
     BrushSizeWidget.h \
     BrushTool.h \
     CollageGenerator.h \
+    CollageImagesPreviewWidget.h \
     CollageResolutionDialog.h \
     CollageSubdivisionsDialog.h \
     ColorPicker.h \
     ImageData.h \
+    ImagePreview.h \
     ImageProcessor.h \
     Layer.h \
     PaintArea.h \
@@ -51,6 +55,7 @@ HEADERS += \
 FORMS += \
     BrushSizePopUp.ui \
     BrushSizeWidget.ui \
+    CollageImagesPreviewWidget.ui \
     CollageResolutionDialog.ui \
     CollageSubdivisionsDialog.ui \
     RandomPickDialog.ui \

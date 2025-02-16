@@ -50,7 +50,7 @@ void BrushSizeWidget::setBrushSize()
     m_brushSize = popup->getSlider()->value();
     QString labelMsg = m_toolName + QStringLiteral(" size: ") + QString::number(m_brushSize) + QStringLiteral(" px");
     ui->brushSizePushButton->setText(labelMsg);
-    qDebug() << "new brush size: " << m_brushSize;
+    //qDebug() << "new brush size: " << m_brushSize;
 }
 
 

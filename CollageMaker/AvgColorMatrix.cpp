@@ -66,7 +66,7 @@ void AvgColorMatrix::generateMatrix()
                 int avgGreen = greenSum/pixelCount;
                 int avgBlue = blueSum/pixelCount;
                 m_colorMatrix[row][col] = QColor(avgRed, avgGreen, avgBlue);
-                qDebug() << "Average color: "<< m_colorMatrix[row][col];
+                //qDebug() << "Average color: "<< m_colorMatrix[row][col];
             }
         }
     }
