@@ -19,6 +19,7 @@
 #include "BrushSizeWidget.h"
 #include "CollageImagesPreviewWidget.h"
 #include "qboxlayout.h"
+#include "AddCollageImagesButton.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -53,6 +54,7 @@ private:
     QScrollArea *m_previewScrollArea;
     QWidget *m_previewContainer;
     QVBoxLayout *m_previewLayout;
+    AddCollageImagesButton *m_addImagesButton;
 
 private:
     void saveDrawing();
@@ -69,7 +71,5 @@ private slots:
     void changePenWidth();
     void changePenColor(const QColor &color);
     void openFile();
-
-
 };
 #endif // MAINWINDOW_H

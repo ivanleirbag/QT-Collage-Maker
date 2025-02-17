@@ -121,6 +121,7 @@ void MainWindow::setPreviewSidePanel()
     m_previewContainer = new QWidget(this);
     m_previewLayout = new QVBoxLayout(m_previewContainer);
     m_previewScrollArea = new QScrollArea(this);
+    m_addImagesButton = new AddCollageImagesButton(this);
 
     m_previewContainer->setLayout(m_previewLayout);
 
@@ -129,6 +130,13 @@ void MainWindow::setPreviewSidePanel()
     m_previewScrollArea->setWidgetResizable(true);
 
     ui->horizontalLayout->addWidget(m_previewScrollArea);
+
+    m_previewLayout->setDirection(QBoxLayout::BottomToTop);
+    m_previewLayout->addWidget(m_addImagesButton);
+    connect(m_addImagesButton->getButton(),
+            &QPushButton::clicked,
+            this,
+            &MainWindow::selectImages);
 }
 
 void MainWindow::selectImages()

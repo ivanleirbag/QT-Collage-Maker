@@ -9,6 +9,7 @@ CONFIG += c++17
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    AddCollageImagesButton.cpp \
     AvgColorMatrix.cpp \
     BrushSizePopUp.cpp \
     BrushSizePreview.cpp \
@@ -30,6 +31,7 @@ SOURCES += \
     mainwindow.cpp
 
 HEADERS += \
+    AddCollageImagesButton.h \
     AvgColorMatrix.h \
     BrushSizePopUp.h \
     BrushSizePreview.h \
@@ -53,6 +55,7 @@ HEADERS += \
     mainwindow.h
 
 FORMS += \
+    AddCollageImagesButton.ui \
     BrushSizePopUp.ui \
     BrushSizeWidget.ui \
     CollageImagesPreviewWidget.ui \
